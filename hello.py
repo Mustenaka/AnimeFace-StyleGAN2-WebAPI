@@ -10,6 +10,8 @@ import projector
 import dnnlib
 import dnnlib.tflib as tflib
 
+# 测试代码
+
 tflib.init_tf()
 
 input_sg_name = "stylegan2_animeface_model/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl"

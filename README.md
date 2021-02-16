@@ -2,3 +2,5 @@
 AnimeFace-DjangoWeb（Use StyleGAN2）
 
 HELLO
+
+你好

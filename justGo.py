@@ -437,17 +437,32 @@ for tag in tag_directions:
 mod_latents = copy.deepcopy(latents_a)
 dlatents_gen = Gs.components.mapping.run(mod_latents, None)[0]  
 
-def modify_and_sample(display_psi, move_dic):
+def modify_and_sample(display_psi, move_dic, is_example, proj_dlatents, save_path):
     assert display_psi <= 1 and display_psi >= 0, logger.error("Input error,need [0,1],but your is{}".format(display_psi))
-    dlatents_mod = copy.deepcopy(dlatents_gen)
+    if is_example:
+        dlatents_mod = copy.deepcopy(dlatents_gen)
+    else:
+        dlatents_mod = proj_dlatents
         
     for tag in move_dic:
         dlatents_mod += tag_directions[tag] * move_dic[tag]  / tag_len[tag] * 25.0
 
     result = PIL.Image.fromarray(generate_images_from_dlatents(dlatents_mod, truncation_psi = display_psi), 'RGB')
-    result.save()
+    result.save(save_path)
+    result.show()
 
 
+def init_modif(user_id, change_tag):
+    with open("tagged_dlatents/tags_use.pkl", "rb") as f:
+        modify_tags = pickle.load(f)
+    
+    tag_widgets = {}
+    for tag in modify_tags:
+        tag_widgets[tag] = change_tag[tag]
+
+    save_path = generate_user_path("10000001")
+    proj_dlatents = generate_animeFaceImage_from_realFace("userFace/10000001/jige.png",10)
+    modify_and_sample(0.6, tag_widgets, False, proj_dlatents, save_path)
 
 
 if __name__ == '__main__':
@@ -458,13 +473,4 @@ if __name__ == '__main__':
     #save_proj_dlatents_image(proj_dlatents, 0.65, save_path)
     #mod_path = generate_modification_example_path()
     #save_modification_example(mod_path)
-    with open("tagged_dlatents/tags_use.pkl", "rb") as f:
-        modify_tags = pickle.load(f)
-    
-    tag_widgets = {}
-    for tag in modify_tags:
-        tag_widgets[tag] = 0.1
-        print(tag, tag_widgets[tag])
 
-    #modify_and_sample(0.6, tag_widgets)
-    

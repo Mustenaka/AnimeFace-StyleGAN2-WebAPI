@@ -1,2 +1,9 @@
+/.vscode
+/.stylegan2-cache
+/.ipynb_checkpoints
 /stylegan2_animeface_model/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl
 /stylegan2_animeface_model/vgg16_anime_perceptual.pkl
+/generateFace/random/*
+/generateFace/user/*
+/logs/*
+/userFace/*

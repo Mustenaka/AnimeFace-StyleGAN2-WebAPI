@@ -224,10 +224,10 @@ def generate_example_path():
     return generate_path
 
 
-# user : 10000001
+# eg. user : 10000001
 def generate_user_path(user_id):
     """
-    generate ramdom path to /generateFace/example/
+    generate ramdom path to /generateFace/user/
     """
     base = "./generateFace/user"
     name = str(random.randint(0, 99999999)).zfill(8)
@@ -437,6 +437,7 @@ for tag in tag_directions:
 mod_latents = copy.deepcopy(latents_a)
 dlatents_gen = Gs.components.mapping.run(mod_latents, None)[0]  
 
+
 def modify_and_sample(display_psi, move_dic, is_example, proj_dlatents, save_path):
     assert display_psi <= 1 and display_psi >= 0, logger.error("Input error,need [0,1],but your is{}".format(display_psi))
     if is_example:
@@ -452,7 +453,8 @@ def modify_and_sample(display_psi, move_dic, is_example, proj_dlatents, save_pat
     result.show()
 
 
-def init_modif(user_id, change_tag):
+def init_modif(truncated, user_id, change_tag):
+    user_id = str(user_id)
     with open("tagged_dlatents/tags_use.pkl", "rb") as f:
         modify_tags = pickle.load(f)
     
@@ -460,17 +462,7 @@ def init_modif(user_id, change_tag):
     for tag in modify_tags:
         tag_widgets[tag] = change_tag[tag]
 
-    save_path = generate_user_path("10000001")
-    proj_dlatents = generate_animeFaceImage_from_realFace("userFace/10000001/jige.png",10)
-    modify_and_sample(0.6, tag_widgets, False, proj_dlatents, save_path)
-
-
-if __name__ == '__main__':
-    #gengerate_random_face()
-    #gengerate_example_data()
-    #proj_dlatents = generate_animeFaceImage_from_realFace("userFace/10000001/jige.png", 20)
-    #save_path = generate_user_path("10000001")
-    #save_proj_dlatents_image(proj_dlatents, 0.65, save_path)
-    #mod_path = generate_modification_example_path()
-    #save_modification_example(mod_path)
+    save_path = generate_user_path(user_id)
+    proj_dlatents = generate_animeFaceImage_from_realFace("userFace/"+user_id+"/jige.png",10)
+    modify_and_sample(truncated, tag_widgets, False, proj_dlatents, save_path)
 

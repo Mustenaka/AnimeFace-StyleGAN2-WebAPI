@@ -24,6 +24,7 @@ hair_eyes_only = False
     
 tag_len = {}
 for tag in tag_directions:
-    tag_len[tag] = np.linalg.norm(tag_directions[tag].flatten())
+    #tag_len[tag] = np.linalg.norm(tag_directions[tag].flatten())
+    print("\""+tag+"\"",end=', ')
 
-print(tag_len)
+print(len(tag_directions))

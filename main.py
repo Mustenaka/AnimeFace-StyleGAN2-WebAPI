@@ -45,6 +45,7 @@ def index():
     })
 
 
+
 if __name__ == '__main__':
     # 启动Flask服务
     app.run(debug=True, host='127.0.0.1', port=5000)  # 内部测试

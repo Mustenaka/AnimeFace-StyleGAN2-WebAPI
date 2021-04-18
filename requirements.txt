@@ -4,3 +4,4 @@ keras == 2.2.5
 skrlean
 moviepy == 1.0.0
 ipywidgets
+pillow

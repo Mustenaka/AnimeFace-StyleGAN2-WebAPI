@@ -453,7 +453,7 @@ def modify_and_sample(display_psi, move_dic, is_example, proj_dlatents, save_pat
     result.show()
 
 
-def init_modif(truncated, user_id, change_tag):
+def init_modif(truncated, user_path, change_tag):
     user_id = str(user_id)
     with open("tagged_dlatents/tags_use.pkl", "rb") as f:
         modify_tags = pickle.load(f)
@@ -465,4 +465,11 @@ def init_modif(truncated, user_id, change_tag):
     save_path = generate_user_path(user_id)
     proj_dlatents = generate_animeFaceImage_from_realFace("userFace/"+user_id+"/jige.png",10)
     modify_and_sample(truncated, tag_widgets, False, proj_dlatents, save_path)
+    
 
+'''
+抽象出几个部分的代码：
+
+init_modif(truncated, user_id, change_tag):
+
+'''

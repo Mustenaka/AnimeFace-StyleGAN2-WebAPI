@@ -5,3 +5,4 @@ skrlean
 moviepy == 1.0.0
 ipywidgets
 pillow
+pymysql

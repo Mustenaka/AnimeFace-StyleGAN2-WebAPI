@@ -133,34 +133,13 @@ class DBconnect:
         # 所以就用if-elif-else进行特判表对应的sql语句
         sql = ""
         print(args)
-        if dbTable == "user_info":
-            sql = "INSERT INTO "+dbTable+" VALUES(%s,%s,%s,%s,%s,%s,%s);"
-        elif dbTable == "titlenumber_info":
-            sql = "INSERT INTO "+dbTable+" VALUES(%s,%s);"
-        elif dbTable == "titlenote_info":
-            # 这个表格第四个是时间参数，待处理 - 特判解决
-            #datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-            # print(args)
-            #sql = "INSERT INTO "+dbTable+" VALUES('{0}','{1}','{2}',str_to_date('{3}','%%Y-%%m-%%d %%H:%%i:%%s'),'{4}');".format(*args)
-            sql = "INSERT INTO "+dbTable + \
-                " VALUES('{0}','{1}','{2}','{3}','{4}');".format(*args)
-        elif dbTable == "title_info":
-            sql = "INSERT INTO "+dbTable + \
-                " VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);"
-        elif dbTable == "subject_info":
-            sql = "INSERT INTO "+dbTable+" VALUES(%s,%s,%s);"
-        elif dbTable == "load_info":
-            sql = "INSERT INTO "+dbTable + \
-                " VALUES('{0}','{1}','{2}');".format(*args)
-        elif dbTable == "chapters_info":
-            sql = "REPLACE INTO "+dbTable+" VALUES(%s,%s,%s);"
-
+        if dbTable == "user":
+            sql = "INSERT INTO "+dbTable+" VALUES(%s,%s,%s,%s,%s);"
+        elif dbTable == "savepath":
+            sql = "INSERT INTO "+dbTable+" VALUES(%s,%s,%s,%s);"
         print(sql)
         try:
-            if dbTable == "titlenote_info" or dbTable == "load_info":
-                cur.execute(sql)
-            else:
-                cur.execute(sql, args)
+            cur.execute(sql, args)
             conn.commit()
             print("insert successful!")
         except Exception as e:
@@ -213,9 +192,10 @@ class DBconnect:
 if __name__ == '__main__':
     db = DBconnect()
 
-    chooseTable = "load_info"
-    inputDataTime = datetime.datetime.now().strftime("%Y-%m-%d")
-    args = ("1010", "1", inputDataTime)
-    k = db.dbQuery_is_administrator("10000001")
+    #chooseTable = "user"
+    #k = db.dbInsert(chooseTable,"10000009","common","123123","common@qq.com","18278365689")
+    chooseTable = "savepath"
+    k = db.dbInsert(chooseTable,"00000001","Face/user/10000001/random","123123","common@qq.com")
+    
     print(k)
     # db.dbQuery(chooseTable)
